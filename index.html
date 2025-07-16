@@ -14,13 +14,20 @@
     crossorigin="anonymous"></script>
 
 </head>
+<script>
+  function buyNow() {
+    window.location.href = "payment.html"; 
+  }
+  function addToCart(){
+    alert("Added to cart");
+  }
+</script>
 
 <body>
   <div class="root">
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid custom-navbar-bg">
-    <!-- Brand Logo -->
     <a class="navbar-brand d-flex align-items-center" href="#">
       <img src="Samsung-Logo-Black-PNG.png" alt="Samsung" height="16" class="me-2">
     </a>
@@ -40,16 +47,16 @@
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Smartphones</a>
+          <a class="nav-link" href="smartphones.html">Smartphones</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">TV</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Appliances</a>
+          <a class="nav-link" href="appliances.html">Appliances</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Support</a>
+          <a class="nav-link" href="support.html">Support</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Offers</a>
@@ -60,11 +67,10 @@
   <div class="input-group">
     <input class="form-control border-dark" type="search" placeholder="Search products" aria-label="Search">
     <button class="btn btn-outline-dark" type="submit">
-<i class="fal fa-search" style="color: #000000;"></i>    </button>
+<i class="fal fa-search" style="color: #000000;"></i>    
+</button>
   </div>
-</form>
-
-        
+</form> 
         <ul class="navbar-nav mb-2 mb-lg-0">
           <li class="nav-item me-3">
             <a class="nav-link" href="login.html"><i class="fas fa-user me-1"></i> Sign In</a>
@@ -81,7 +87,7 @@
   </nav>
 
     <div class="video-banner">
-      <video autoplay muted playsinline>
+      <video autoplay loop muted playsinline>
         <source src="https://images.samsung.com/in/smartphones/galaxy-z-fold7/buy/kv_animated_PC.mp4" type="video/mp4">
       </video>
     </div>
@@ -91,52 +97,85 @@
         <img
           src="https://vsprod.vijaysales.com/media/catalog/product/2/2/225661_1_.jpg?optimize=medium&fit=bounds&height=500&width=500"
           alt="Image">
-        <p>Product 1<br> <b>$199</b></p>
-        <button type="button" class="btn btn-outline-success">Buy</button>
+        <p>Product 1<br> <b>₹19,099</b></p>
+        <button type="button" class="btn btn-outline-success" onclick="buyNow()">Buy</button>
+        <button type="button" class="btn btn-outline-primary mt-2" onclick="addToCart()">Add to Cart</button>
+
 
       </div>
       <div class="item">
         <img
           src="https://vsprod.vijaysales.com/media/catalog/product/2/2/225661_1_.jpg?optimize=medium&fit=bounds&height=500&width=500"
           alt="Image">
-        <p>Product 2<br> <b>$199</b></p>
-        
-        <button type="button" class="btn btn-outline-success">Buy</button>
+        <p>Product 2<br> <b>₹19,099</b></p>
+        <button type="button" class="btn btn-outline-success" onclick="buyNow()">Buy</button>
+        <button type="button" class="btn btn-outline-primary mt-2" onclick="addToCart()">Add to Cart</button>
+
       </div>
 
       <div class="item">
         <img
           src="https://vsprod.vijaysales.com/media/catalog/product/2/2/225661_1_.jpg?optimize=medium&fit=bounds&height=500&width=500"
           alt="Image">
-        <p>Product 3<br> <b>$199</b></p>
-        <button type="button" class="btn btn-outline-success">Buy</button>
+        <p>Product 3<br> <b>₹19,099</b></p>
+        <button type="button" class="btn btn-outline-success" onclick="buyNow()">Buy</button>
+        <button type="button" class="btn btn-outline-primary mt-2" onclick="addToCart()">Add to Cart</button>
+      </div>
+      
+      <div class="item">
+        <img
+          src="https://vsprod.vijaysales.com/media/catalog/product/2/2/225661_1_.jpg?optimize=medium&fit=bounds&height=500&width=500"
+          alt="Image">
+        <p>Product 1<br> <b>₹19,099</b></p>
+        <button type="button" class="btn btn-outline-success" onclick="buyNow()">Buy</button>
+        <button type="button" class="btn btn-outline-primary mt-2" onclick="addToCart()">Add to Cart</button>
+
+      </div>
+      <div class="item">
+        <img
+          src="https://vsprod.vijaysales.com/media/catalog/product/2/2/225661_1_.jpg?optimize=medium&fit=bounds&height=500&width=500"
+          alt="Image">
+        <p>Product 2<br> <b>₹19,099</b></p>
+        <button type="button" class="btn btn-outline-success" onclick="buyNow()">Buy</button>
+        <button type="button" class="btn btn-outline-primary mt-2" onclick="addToCart()">Add to Cart</button>
+      </div>
+
+      <div class="item">
+        <img
+          src="https://vsprod.vijaysales.com/media/catalog/product/2/2/225661_1_.jpg?optimize=medium&fit=bounds&height=500&width=500"
+          alt="Image">
+        <p>Product 3 <br> <b>₹19,099</b></p>
+        <button type="button" class="btn btn-outline-success" onclick="buyNow()">Buy</button>
+        <button type="button" class="btn btn-outline-primary mt-2" onclick="addToCart()">Add to Cart</button>
+      </div>
+
+    <div class="item">
+        <img
+          src="https://vsprod.vijaysales.com/media/catalog/product/2/2/225661_1_.jpg?optimize=medium&fit=bounds&height=500&width=500"
+          alt="Image">
+        <p>Product 1<br> <b>₹19,099</b></p>
+        <button type="button" class="btn btn-outline-success" onclick="buyNow()">Buy</button>
+        <button type="button" class="btn btn-outline-primary mt-2" onclick="addToCart()">Add to Cart</button>
+      </div>
+      <div class="item">
+        <img
+          src="https://vsprod.vijaysales.com/media/catalog/product/2/2/225661_1_.jpg?optimize=medium&fit=bounds&height=500&width=500"
+          alt="Image">
+        <p>Product 2<br> <b>₹19,099</b></p>
+        <button type="button" class="btn btn-outline-success" onclick="buyNow()">Buy</button>
+        <button type="button" class="btn btn-outline-primary mt-2" onclick="addToCart()">Add to Cart</button>  
+    </div>
+
+      <div class="item">
+        <img
+          src="https://vsprod.vijaysales.com/media/catalog/product/2/2/225661_1_.jpg?optimize=medium&fit=bounds&height=500&width=500"
+          alt="Image">
+        <p>Product 3 <br> <b>₹19,099</b></p>
+        <button type="button" class="btn btn-outline-success" onclick="buyNow()">Buy</button>
+        <button type="button" class="btn btn-outline-primary mt-2" onclick="addToCart()">Add to Cart</button>      
       </div>
     </div>
-    <div class="container">
-      <div class="item">
-        <img
-          src="https://vsprod.vijaysales.com/media/catalog/product/2/2/225661_1_.jpg?optimize=medium&fit=bounds&height=500&width=500"
-          alt="Image">
-        <p>Product 1<br> <b>$199</b></p>
-        <button type="button" class="btn btn-outline-success">Buy</button>
 
-      </div>
-      <div class="item">
-        <img
-          src="https://vsprod.vijaysales.com/media/catalog/product/2/2/225661_1_.jpg?optimize=medium&fit=bounds&height=500&width=500"
-          alt="Image">
-        <p>Product 2<br> <b>$199</b></p>
-        <button type="button" class="btn btn-outline-success">Buy</button>
-      </div>
-
-      <div class="item">
-        <img
-          src="https://vsprod.vijaysales.com/media/catalog/product/2/2/225661_1_.jpg?optimize=medium&fit=bounds&height=500&width=500"
-          alt="Image">
-        <p>Product 3 <br> <b>$199</b></p>
-        <button type="button" class="btn btn-outline-success">Buy</button>
-      </div>
-    </div>
 
 <div class="container my-5">
   <h2 class="mb-4 text-center">Contact Us</h2>
