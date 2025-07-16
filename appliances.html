@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Samsung Appliances</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function buyNow() {
+      window.location.href = "payment.html";
+    }
+  </script>
+  <style>
+    .product-card img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+    .product-card {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 30px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      transition: transform 0.2s;
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html">
+      <img src="Samsung-Logo-Black-PNG.png" alt="Samsung" height="20">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="smartphones.html">Smartphones</a></li>
+        <li class="nav-item"><a class="nav-link" href="TV.html">TV</a></li>
+        <li class="nav-item"><a class="nav-link active" href="#">Appliances</a></li>
+        <li class="nav-item"><a class="nav-link" href="support.html">Support</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container my-5">
+  <h2 class="mb-4 text-center">Samsung Appliances</h2>
+  <div class="row">
+
+    <div class="col-md-4">
+      <div class="product-card">
+        <img src="data:image/jpeg;base64,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" alt="Washing Machine">
+        <h5 class="mt-3">Samsung Front Load Washer</h5>
+        <p><strong>₹25,999</strong></p>
+        <button class="btn btn-outline-success" onclick="buyNow()">Buy</button>
+        <button class="btn btn-outline-primary mt-2">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="product-card">
+        <img src="data:image/jpeg;base64,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" alt="Refrigerator">
+        <h5 class="mt-3">Samsung Double Door Fridge</h5>
+        <p><strong>₹25,999</strong></p>
+        <button class="btn btn-outline-success" onclick="buyNow()">Buy</button>
+        <button class="btn btn-outline-primary mt-2">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="product-card">
+        <img src="data:image/jpeg;base64,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" alt="Microwave">
+        <h5 class="mt-3">Samsung Convection Microwave</h5>
+        <p><strong>₹25,999</strong></p>
+        <button class="btn btn-outline-success" onclick="buyNow()">Buy</button>
+        <button class="btn btn-outline-primary mt-2">Add to Cart</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

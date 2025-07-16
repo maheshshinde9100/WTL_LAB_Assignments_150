@@ -23,6 +23,6 @@
       console.error("BAD REQUEST");
       console.warn("Fill all required fields.");
       btn.style.borderColor = "red";
-
     }
   }
+  
