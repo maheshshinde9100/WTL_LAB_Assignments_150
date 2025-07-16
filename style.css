@@ -1,0 +1,119 @@
+   body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      /* padding: 20px; */
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .item {
+      /* background-color: white; */
+      padding: 20px;
+      /* border-radius: 10px; */
+      /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
+      text-align: center;
+      width: 200px;
+    }
+
+    .item img {
+      width: 100%;
+      max-width: 150px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    .item p {
+      margin-bottom: 10px;
+      font-size: 16px;
+      color: #333;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        flex-direction: column;
+
+        align-items: center;
+      }
+
+      .item {
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+
+
+    .video-banner {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+    .video-banner video {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    @media (min-width: 768px) {
+      .video-banner video {
+        height: 100vh;
+      }
+    }
+
+
+   .navbar {
+      background-color: #fff; 
+    }
+    .navbar .nav-link,
+    .navbar .navbar-brand {
+      color: #000;
+    }
+    .navbar .nav-link:hover,
+    .navbar .navbar-brand:hover {
+      color: #0dcaf0;
+    }
+    .navbar .btn-outline-light:hover {
+      background-color: #0dcaf0;
+      color: #000;
+      border-color: #0dcaf0;
+    }
+
+
+    .containerxyz{
+      border: 5px solid black;
+      height: 50px;
+      width: 100px;
+      margin: 5px;
+      padding: 5px;
+      box-sizing: border-box;
+    }
+
+    .footer{
+      display: flex;
+      width: 100%;
+      height: auto;
+      background-color: #0dcaf0;
+    }
+    .footer-part1{
+      width: 50%;
+      background-color: red;
+    }
+    .footer-part2{
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      background-color: blue;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #input-field{
+      width: 300px;
+    }
+
+    
