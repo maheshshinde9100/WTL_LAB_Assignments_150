@@ -1,11 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>samsung cart</title>
+  <meta charset="UTF-8">
+  <title>My Cart - Samsung Store</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .cart-container {
+      margin-top: 50px;
+    }
+
+    .cart-item {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+    }
+
+    .cart-summary {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .product-title {
+      font-weight: 600;
+    }
+
+    .quantity-input {
+      width: 70px;
+    }
+  </style>
 </head>
 <body>
-    
+
+  <div class="container cart-container">
+    <h2 class="mb-4">Your Shopping Cart</h2>
+
+    <div class="row">
+      <div class="col-lg-8">
+        
+        <div class="cart-item d-flex flex-column flex-md-row align-items-center justify-content-between">
+          <div class="d-flex align-items-center">
+            <img src="https://images.samsung.com/is/image/samsung/p6pim/levant/2302/gallery/levant-galaxy-s23-s911-sm-s911blicmea-534843692?$684_547_PNG$" alt="Product Image" width="100" class="me-3">
+            <div>
+              <p class="product-title mb-1">Samsung Galaxy S23 (128GB)</p>
+              <p class="text-muted mb-0">Color: Lavender</p>
+            </div>
+
+          </div>
+          <div class="text-end mt-3 mt-md-0">
+            <p class="mb-2"><strong>₹49,999.00</strong></p>
+            <input type="number" class="form-control quantity-input d-inline" min="1" value="1">
+          </div>
+        </div>
+
+        <div class="cart-item d-flex flex-column flex-md-row align-items-center justify-content-between">
+          <div class="d-flex align-items-center">
+            <img src="https://images.samsung.com/is/image/samsung/p6pim/in/rt28c3733bx-hl/gallery/in-236l-convertible-freezer-double-door-refrigerator-rt28c3732s8-rt28c3733bx-hl-536925580?$684_547_PNG$" alt="Product Image" width="100" class="me-3">
+            <div>
+              <p class="product-title mb-1">Samsung Refrigerator 236L</p>
+              <p class="text-muted mb-0">236 L Convertible Freezer Double Door Refrigerator RT28C3733BX</p>
+              <p class="text-muted mb-0">Colour : Luxe Black</p>
+
+            </div>
+          </div>
+          <div class="text-end mt-3 mt-md-0">
+            <p class="mb-2"><strong>₹25,999.00</strong></p>
+            <input type="number" class="form-control quantity-input d-inline" min="1" value="1">
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-lg-4">
+        <div class="cart-summary">
+          <h5>Order Summary</h5>
+          <hr>
+          <div class="d-flex justify-content-between mb-2">
+            <span>Subtotal</span>
+            <span>₹75,998.00</span>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span>Shipping</span>
+            <span>Free</span>
+          </div>
+          <div class="d-flex justify-content-between fw-bold">
+            <span>Total</span>
+            <span>₹75,998.00</span>
+          </div>
+
+          <button class="btn btn-success w-100 mt-4">Proceed</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
