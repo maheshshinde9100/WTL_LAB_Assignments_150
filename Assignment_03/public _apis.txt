@@ -1,0 +1,13 @@
+🔢	API Name	Description	Base URL
+1️⃣	JSONPlaceholder	Fake REST API for testing (users, posts, comments, etc.)	https://jsonplaceholder.typicode.com
+2️⃣	Cat Facts	Get random cat facts 🐱	https://catfact.ninja/fact
+3️⃣	Advice Slip	Random advice generator	https://api.adviceslip.com/advice
+4️⃣	Public APIs List	List of public APIs categorized by topic	https://api.publicapis.org/entries
+5️⃣	Bored API	Suggests random activities to do when you're bored	https://www.boredapi.com/api/activity
+6️⃣	Dog CEO API	Get random dog images 🐶	https://dog.ceo/api/breeds/image/random
+7️⃣	Joke API	Random programming jokes	https://v2.jokeapi.dev/joke/Programming
+8️⃣	OpenWeatherMap (Free Key Required)	Real-time weather data	https://api.openweathermap.org/data/2.5/weather?q=Pune&appid=YOUR_API_KEY
+9️⃣	REST Countries	Get country data (flags, currency, population, etc.)	https://restcountries.com/v3.1/all
+🔟	Number Facts	Facts about numbers, math, years, dates, etc.	http://numbersapi.com/42
+1️⃣1️⃣	Pokemon API	Data about Pokémon	https://pokeapi.co/api/v2/pokemon
+1️⃣2️⃣	Currency Exchange Rates	Get currency conversion info	https://api.exchangerate-api.com/v4/latest/USD
