@@ -59,47 +59,94 @@
 </head>
 <body>
 
-  <h1></h1>Displayingg Users from a Public API</h1><br>
-  <button id="loadBtn">Display Users</button>
+  <h1>#Currency Exchange Rates</h1>
+  <label for="currencySelect"><strong>Select Base Currency:</strong></label>
+  <select id="currencySelect">
+  </select>
+  <button id="loadBtn">Show Rates</button>
 
-  <div id="userList" class="users-container"></div>
+  <div id="list" class="users-container"></div>
 
   <script>
-    document.getElementById('loadBtn').addEventListener('click', () => {
-      fetch("https://jsonplaceholder.typicode.com/users")
-      // fetch("https://www.boredapi.com/api/activity")
+    // document.getElementById('loadBtn').addEventListener('click', () => {
+    //   fetch("https://jsonplaceholder.typicode.com/users")
+    //     .then(response => response.json())
+    //     .then(users => {
+    //         console.log(users);
+    //       displayData(users);
+    //     })
+    //     .catch(error => {
+    //       console.error("Error fetching data:", error);
+    //       document.getElementById('list').innerHTML = "<p>Error loading data. Please try again.</p>";
+    //     });
+    // });
+
+    // function displayData(users) {
+    //   const usersList = document.getElementById("list");
+    //   usersList.innerHTML = ""; // Clear previous data
+
+    //   users.forEach(user => {
+    //     const card = document.createElement("div");
+    //     card.className = "user-card";
+
+    //     card.innerHTML = `
+    //       <h2>${user.name}</h2>
+    //       <p><strong>Username:</strong> ${user.username}</p>
+    //       <p><strong>Email:</strong> ${user.email}</p>
+    //       <p><strong>Phone:</strong> ${user.phone}</p>
+    //       <p><strong>Website:</strong> <a href="http://${user.website}" target="_blank">${user.website}</a></p>
+    //       <p><strong>Company:</strong> ${user.company.name}</p>
+    //       <p><strong>Address:</strong> ${user.address.suite}, ${user.address.street}, ${user.address.city}</p>
+    //     `;
+
+    //     usersList.appendChild(card);
+    //   });
+    // }
+
+    const list = document.querySelector("#list");
+    const currencySelect = document.getElementById("currencySelect");
+
+
+    window.addEventListener("DOMContentLoaded", () => {
+      fetch("https://api.exchangerate-api.com/v4/latest/USD")
         .then(response => response.json())
-        .then(users => {
-            console.log(users);
-          displayData(users);
-        })
-        .catch(error => {
-          console.error("Error fetching data:", error);
-          document.getElementById('userList').innerHTML = "<p>Error loading data. Please try again.</p>";
+        .then(data => {
+          const currencies = Object.keys(data.rates);
+          currencySelect.innerHTML = "";
+          currencies.forEach(curr => {
+            const option = document.createElement("option");
+            option.value = curr;
+            option.textContent = curr;
+            currencySelect.appendChild(option);
+          });
         });
     });
 
-    function displayData(users) {
-      const usersList = document.getElementById("userList");
-      usersList.innerHTML = ""; // Clear previous data
+    document.getElementById("loadBtn").addEventListener("click", () => {
+      const selectedCurrency = currencySelect.value;
+      fetch(`https://api.exchangerate-api.com/v4/latest/${selectedCurrency}`)
+        .then(response => response.json())
+        .then(data => {
+          displayRates(data, selectedCurrency);
+          console.log(data);
+        });
+    });
 
-      users.forEach(user => {
+    function displayRates(data, baseCurrency) {
+      list.innerHTML = "";
+      const ratesArr = Object.entries(data.rates)
+        .filter(([currency]) => currency !== baseCurrency);
+      ratesArr.forEach(([currency, rate]) => {
         const card = document.createElement("div");
         card.className = "user-card";
-
         card.innerHTML = `
-          <h2>${user.name}</h2>
-          <p><strong>Username:</strong> ${user.username}</p>
-          <p><strong>Email:</strong> ${user.email}</p>
-          <p><strong>Phone:</strong> ${user.phone}</p>
-          <p><strong>Website:</strong> <a href="http://${user.website}" target="_blank">${user.website}</a></p>
-          <p><strong>Company:</strong> ${user.company.name}</p>
-          <p><strong>Address:</strong> ${user.address.suite}, ${user.address.street}, ${user.address.city}</p>
+          <h2>${currency}</h2>
+          <p><strong>1 ${baseCurrency} = ${rate} ${currency}</strong></p>
         `;
-
-        usersList.appendChild(card);
+        list.appendChild(card);
       });
     }
+
   </script>
 
 </body>

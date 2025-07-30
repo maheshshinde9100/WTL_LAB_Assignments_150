@@ -11,3 +11,8 @@
 🔟	Number Facts	Facts about numbers, math, years, dates, etc.	http://numbersapi.com/42
 1️⃣1️⃣	Pokemon API	Data about Pokémon	https://pokeapi.co/api/v2/pokemon
 1️⃣2️⃣	Currency Exchange Rates	Get currency conversion info	https://api.exchangerate-api.com/v4/latest/USD
+
+13. University Domains API – University names and domains for a keyword.
+http://universities.hipolabs.com/search?name=Tokyo
+
+14. https://api.genderize.io?name=your-name
