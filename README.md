@@ -14,7 +14,11 @@ In future, this repository will also include assignments and practice code for:
 -->
 ## Assignments
 
-### Assignment 1: Deployed Link: [https://samsungstore-clone-by-shindemahesh.netlify.app/](https://samsungstore-clone-by-shindemahesh.netlify.app/)
+### Assignment 1: Deployed Link: [https://wtl-assignments-150.netlify.app/assignment_01/](https://wtl-assignments-150.netlify.app/assignment_01/)
+
+### Assignment 2: Deployed Link: [https://wtl-assignments-150.netlify.app/assignment_02/](https://wtl-assignments-150.netlify.app/assignment_02/)
+
+### Assignment 3: Deployed Link: [https://wtl-assignments-150.netlify.app/assignment_03/](https://wtl-assignments-150.netlify.app/assignment_03/)
 
 ## Author
 
