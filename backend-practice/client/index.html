@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Practice Document</title>
     <style>
-        .post-container{
-            display:flex;
+        .post-container {
+            display: flex;
             flex-direction: column;
             margin: 10px;
             justify-content: center;
             align-items: center;
             background-color: beige;
         }
-        .post-container input{
+
+        .post-container input {
             margin: 10px;
             height: 30px;
             width: 400px;
@@ -22,7 +24,8 @@
             padding: 10px;
             text-align: center;
         }
-        .post-container select{
+
+        .post-container select {
             margin: 10px;
             height: 40px;
             width: 200px;
@@ -33,7 +36,7 @@
             text-align: center;
         }
 
-        .post-container button{
+        .post-container button {
             height: 50px;
             border: 2px solid rgb(2, 80, 2);
             border-radius: 50px;
@@ -42,20 +45,21 @@
             margin: 10px;
             padding: 20px;
         }
-        .post-container button:hover{
+
+        .post-container button:hover {
             background-color: rgb(57, 110, 5);
         }
 
-        .get-container{
-            display:flex;
+        .get-container {
+            display: flex;
             flex-direction: column;
             margin: 10px;
             justify-content: center;
             align-items: center;
             background-color: beige;
         }
-        
-        .get-container button{
+
+        .get-container button {
             height: 50px;
             border: 1px solid black;
             border-radius: 50px;
@@ -64,12 +68,13 @@
             margin: 10px;
             padding: 20px;
         }
-        .get-container button:hover{
+
+        .get-container button:hover {
             background-color: rgb(57, 110, 5);
         }
-    
     </style>
 </head>
+
 <body>
     <div class="main-container">
         <div class="post-container">
@@ -98,14 +103,45 @@
 <script>
     let postBtn = document.querySelector('#post-btn');
     let getBtn = document.querySelector('#get-btn');
-    postBtn.addEventListener('click',()=>{
-        //remainingg posting data using api endpoint 
+    postBtn.addEventListener('click', () => {
+        let ipname = document.querySelector('#name');
+        let ipemail = document.querySelector('#email');
+        let ipage = document.querySelector('#age');
+        let iprole = document.querySelector('#role');
+        const userData = {
+            name: ipname.value,
+            email: ipemail.value,
+            age: Number(ipage.value),
+            role: iprole.value
+        }
+            fetch('http://localhost:5000/api/user/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData)
+            })
+                .then(res => {
+                    if (!res.ok) {
+                        throw new Error(`Server error! : ${res.status}`);
+                    }
+                    return res.json();
+                })
+                .then(data => {
+                    console.log('Success : ',data)
+                    alert('User registered successfully!');
+                })
+                 .catch(error => {
+                    console.error('Error:', error);
+                alert('Registration failed.');
+                });
     });
 
-    getBtn.addEventListener('click',()=>{
+    getBtn.addEventListener('click', () => {
         //remainingg to fetch
 
     });
 
 </script>
+
 </html>
