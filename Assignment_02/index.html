@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FFF 0%, #FFF 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -215,9 +215,62 @@
                 font-size: 2em;
             }
         }
+
+        header {
+            width: 100%;
+            background: linear-gradient(90deg, #667eea 60%, #764ba2 100%);
+            color: white;
+            padding: 18px 0 10px 0;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.08);
+        }
+        .header-content {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .header-content h2 {
+            margin: 0;
+            font-size: 2em;
+            letter-spacing: 1px;
+        }
+        .header-content nav a {
+            color: #fff;
+            margin-left: 20px;
+            font-size: 1em;
+            transition: text-decoration 0.2s;
+        }
+        .header-content nav a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            width: 100%;
+            background: linear-gradient(90deg, #667eea 60%, #764ba2 100%);
+            color: #fff;
+            text-align: center;
+            padding: 16px 0 10px 0;
+            margin-top: 40px;
+            box-shadow: 0 -2px 8px rgba(102, 126, 234, 0.08);
+        }
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1em;
+            letter-spacing: 0.5px;
+        }
     </style>
 </head>
 <body>
+    <header>
+        <div class="header-content">
+            <h2>My TODO list</h2>
+            <nav>
+                <a href="#" style="color:white;text-decoration:none;font-weight:bold; text-align: start;">Home</a>
+            </nav>
+        </div>
+    </header>
     <div class="container">
         <h1>My TODO List</h1>
         
@@ -232,17 +285,31 @@
             <span>Remaining: <span id="remainingTasks">0</span></span>
         </div>
 
-        <ul id="taskList">
-            <div class="empty-state" id="emptyState">
-                No tasks yet! Add one above to get started.
+
+        <div id="tasksSection">
+            <div id="activeTasksContainer">
+                <h3 style="margin-top:20px; margin-bottom:10px; color:#667eea;">Active Tasks</h3>
+                <ul id="taskList">
+                    <div class="empty-state" id="emptyState">
+                        No tasks yet! Add one above to get started.
+                    </div>
+                </ul>
             </div>
-        </ul>
+            <div id="completedTasksContainer" style="margin-top:30px;">
+                <h3 style="margin-bottom:10px; color:#4caf50;">Completed Tasks</h3>
+                <ul id="completedTaskList"></ul>
+            </div>
+        </div>
 
         <button class="clear-completed" onclick="clearCompleted()" id="clearBtn" style="display: none;">
-            🗑️ Clear Completed Tasks
+            Clear Completed Tasks
         </button>
     </div>
-
+    <footer>
+        <div class="footer-content">
+            <!-- <span>&copy; 2025 TaskMaster &mdash; All rights reserved.</span> -->
+        </div>
+    </footer>
     <script>
         let tasks = [];
         let taskId = 0;
@@ -251,11 +318,11 @@
             const taskInput = document.getElementById('taskInput');
             const taskText = taskInput.value.trim();
             
-            if (taskText === '') {
+            if (taskText==='') {
                 taskInput.focus();
-                taskInput.style.borderColor = '#ff6b6b';
+                taskInput.style.borderColor='#ff6b6b';
                 setTimeout(() => {
-                    taskInput.style.borderColor = '#e0e0e0';
+                    taskInput.style.borderColor='#e0e0e0';
                 }, 1000);
                 return;
             }
@@ -280,7 +347,7 @@
         }
 
         function toggleTask(id) {
-            const task = tasks.find(task => task.id === id);
+            const task = tasks.find(task=>task.id===id);
             if (task) {
                 task.completed = !task.completed;
                 renderTasks();
@@ -296,26 +363,39 @@
 
         function renderTasks() {
             const taskList = document.getElementById('taskList');
+            const completedTaskList = document.getElementById('completedTaskList');
             const emptyState = document.getElementById('emptyState');
             const clearBtn = document.getElementById('clearBtn');
 
-            if (tasks.length === 0) {
+            const activeTasks = tasks.filter(task => !task.completed);
+            const completedTasks = tasks.filter(task => task.completed);
+
+            if (activeTasks.length === 0) {
                 taskList.innerHTML = '<div class="empty-state">No tasks yet!</div>';
-                clearBtn.style.display = 'none';
-                return;
+            } else {
+                taskList.innerHTML = activeTasks.map(task => `
+                    <li class="task-item">
+                        <div class="task-checkbox" onclick="toggleTask(${task.id})"></div>
+                        <span class="task-text">${task.text}</span>
+                        <button class="delete-btn" onclick="deleteTask(${task.id})">DELETE</button>
+                    </li>
+                `).join('');
             }
 
-            const hasCompleted = tasks.some(task => task.completed);
-            clearBtn.style.display = hasCompleted ? 'block' : 'none';
+            if (completedTasks.length === 0) {
+                completedTaskList.innerHTML = '<div class="empty-state">No completed tasks yet.</div>';
+            } else {
+                completedTaskList.innerHTML = completedTasks.map(task => `
+                    <li class="task-item completed">
+                        <div class="task-checkbox checked" onclick="toggleTask(${task.id})"></div>
+                        <span class="task-text completed">${task.text}</span>
+                        <button class="delete-btn" onclick="deleteTask(${task.id})">DELETE</button>
+                    </li>
+                `).join('');
+            }
 
-            taskList.innerHTML = tasks.map(task => `
-                <li class="task-item ${task.completed ? 'completed' : ''}">
-                    <div class="task-checkbox ${task.completed ? 'checked' : ''}" 
-                         onclick="toggleTask(${task.id})"></div>
-                    <span class="task-text ${task.completed ? 'completed' : ''}">${task.text}</span>
-                    <button class="delete-btn" onclick="deleteTask(${task.id})">DELETE</button>
-                </li>
-            `).join('');
+            
+            clearBtn.style.display = completedTasks.length > 0 ? 'block' : 'none';
         }
 
         function updateStats() {
