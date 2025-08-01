@@ -1,8 +1,10 @@
 const express = require('express')
 const router = express.Router()
-const User = require("../models/Users")
+const User = require("../models/Users");
+const { default: mongoose } = require('mongoose');
+const Users = require('../models/Users');
 
-router.post('/', async (req,res)=>{
+router.post('/register', async (req,res)=>{
     try{
         const {name,email,age} = req.body;
         let user = User.findOne({email})
@@ -23,9 +25,23 @@ router.post('/', async (req,res)=>{
         res.status(201).json({
             msg:"User created successfully.. "+user
         })
-        
+
     }catch(err){
         console.error(err.message);
         res.status(500).send('Server error');
     }
 });
+
+router.get('/', async (req,res)=>{
+    try{
+        const users = await Users.find().select('name email age role createdAt')
+        res.status(200).json("Fetched Users :> ",users)
+    }catch(err){
+        res.status(500).json({
+            error:"Server error"
+        })
+    }
+});
+
+
+module.exports = router;
