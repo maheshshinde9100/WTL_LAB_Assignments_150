@@ -10,13 +10,14 @@ const app = express()
 
 app.use(express.json())
 
-app.use(cors)
+app.use(cors())
 
 mongoose.connect(MongoURI)
     .then(() => console.log("Mongodb connected successfully..: "))
     .catch(err => console.log("Mongodb connection error..: ",err))
 
 // API routes    
-app.use('/api/user',require("./routes/UserRoute"))
+app.use('/api/', require("./routes/HealthCheck"))
+app.use('/api/user', require("./routes/UserRoute"))
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
