@@ -5,87 +5,160 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Practice Document</title>
-    <style>
-        .post-container {
-            display: flex;
-            flex-direction: column;
-            margin: 10px;
-            justify-content: center;
-            align-items: center;
-            background-color: beige;
-        }
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #1e1e2f;
+      color: #f0f0f0;
+    }
 
-        .post-container input {
-            margin: 10px;
-            height: 30px;
-            width: 400px;
-            border-radius: 30px;
-            border: 2px solid black;
-            padding: 10px;
-            text-align: center;
-        }
+    .main-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
 
-        .post-container select {
-            margin: 10px;
-            height: 40px;
-            width: 200px;
-            border-radius: 30px;
-            border: 2px solid rgb(21, 101, 249);
-            background-color: skyblue;
-            padding: 10px;
-            text-align: center;
-        }
+    .post-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(145deg, #2a2a3b, #1a1a29);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    }
 
-        .post-container button {
-            height: 50px;
-            border: 2px solid rgb(2, 80, 2);
-            border-radius: 50px;
-            background-color: rgb(13, 240, 13);
-            color: black;
-            margin: 10px;
-            padding: 20px;
-        }
+    .post-container-part1 {
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      padding-right: 20px;
+    }
 
-        .post-container button:hover {
-            background-color: rgb(57, 110, 5);
-        }
+    .post-container-part1 input,
+    .post-container-part1 select {
+      background-color: #2d2d3e;
+      color: #ffffff;
+      border: 1px solid #5e5e7a;
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-size: 15px;
+      outline: none;
+      transition: border 0.3s;
+    }
 
-        .get-container {
-            display: flex;
-            flex-direction: column;
-            margin: 10px;
-            justify-content: center;
-            align-items: center;
-            background-color: beige;
-        }
+    .post-container-part1 input:focus,
+    .post-container-part1 select:focus {
+      border-color: #e94560;
+    }
 
-        .get-container button {
-            height: 50px;
-            border: 1px solid black;
-            border-radius: 50px;
-            background-color: rgb(55, 250, 55);
-            color: black;
-            margin: 10px;
-            padding: 20px;
-        }
+    .post-container-part2 {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
 
-        .get-container button:hover {
-            background-color: rgb(57, 110, 5);
-        }
-        .cards-container{
-            display: flex;
+    .post-container-part2 button {
+      padding: 16px 32px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+      background-color: #e94560;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
 
-        }
-        .cards-container div{
-            margin: 20px;
-            padding: 10px;
-        }
-    </style>
+    .post-container-part2 button:hover {
+      background-color: #f25c74;
+      transform: scale(1.05);
+    }
+
+    hr {
+      border: none;
+      height: 1px;
+      background-color: #444;
+      margin: 40px 0;
+    }
+
+    .get-container {
+      text-align: center;
+      background-color: #292940;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .get-container button {
+      background-color: #00c9a7;
+      color: #fff;
+      padding: 14px 28px;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .get-container button:hover {
+      background-color: #00a98b;
+    }
+
+    .cards-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .user-card {
+      background: linear-gradient(145deg, #3a3a5a, #2e2e45);
+      border-radius: 14px;
+      padding: 20px;
+      width: 260px;
+      color: #fff;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .user-card:hover {
+      background: #e94560;
+      transform: translateY(-8px);
+    }
+
+    .user-card h4 {
+      margin: 8px 0;
+      font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+      .post-container {
+        flex-direction: column;
+      }
+
+      .post-container-part1, .post-container-part2 {
+        width: 100%;
+        padding: 0;
+      }
+
+      .post-container-part2 {
+        margin-top: 20px;
+      }
+    }
+  </style>
 </head>
 
 <body>
     <div class="main-container">
         <div class="post-container">
+            <div class="post-container-part1">
             <input id="name" type="text" placeholder="Enter fullname">
             <input id="email" type="email" placeholder="email.xyz.com">
             <input id="age" type="number" placeholder="Enter age">
@@ -95,7 +168,10 @@
                 <option value="editor">Editor</option>
                 <option value="viewer">Viewer</option>
             </select>
+            </div>
+            <div class="post-container-part2">
             <button id="post-btn" onclick="postUser()">Submit User (POST)</button>
+            </div>
         </div>
         <hr>
         <div class="get-container">
@@ -153,17 +229,16 @@
             .then(users => {
                 users.forEach(user => {
                     let card = document.createElement("div");
-                    card.className = "details-card"
+                    card.className = "user-card"
                     card.innerHTML = `<h4>Name : ${user.name}</h4>
                                     <h4>Email : ${user.email}</h4>
                                     <h4>Age : ${user.age}</h4>
                                     <h4>Role : ${user.role}</h4>
                                     <h4>Created At : ${user.createdAt}</h4>`;
-                                    card.style.backgroundColor = "red";
                     cardContainer.append(card);
                 })
             })
-            .catch(err => console.log("server error : ", err))
+            .catch(err => console.log("server error : ",err))
     })
 </script>
 
