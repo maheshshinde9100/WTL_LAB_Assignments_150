@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice Document</title>
+    <style>
+        .post-container{
+            display:flex;
+            flex-direction: column;
+            margin: 10px;
+            justify-content: center;
+            align-items: center;
+            background-color: beige;
+        }
+        .post-container input{
+            margin: 10px;
+            height: 30px;
+            width: 400px;
+            border-radius: 30px;
+            border: 2px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+        .post-container select{
+            margin: 10px;
+            height: 40px;
+            width: 200px;
+            border-radius: 30px;
+            border: 2px solid rgb(21, 101, 249);
+            background-color: skyblue;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .post-container button{
+            height: 50px;
+            border: 2px solid rgb(2, 80, 2);
+            border-radius: 50px;
+            background-color: rgb(13, 240, 13);
+            color: black;
+            margin: 10px;
+            padding: 20px;
+        }
+        .post-container button:hover{
+            background-color: rgb(57, 110, 5);
+        }
+
+        .get-container{
+            display:flex;
+            flex-direction: column;
+            margin: 10px;
+            justify-content: center;
+            align-items: center;
+            background-color: beige;
+        }
+        
+        .get-container button{
+            height: 50px;
+            border: 1px solid black;
+            border-radius: 50px;
+            background-color: rgb(55, 250, 55);
+            color: black;
+            margin: 10px;
+            padding: 20px;
+        }
+        .get-container button:hover{
+            background-color: rgb(57, 110, 5);
+        }
+    
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="post-container">
+            <input id="name" type="text" placeholder="Enter fullname">
+            <input id="email" type="email" placeholder="email.xyz.com">
+            <input id="age" type="number" placeholder="Enter age">
+            <select id="role">
+                <option selected disabled>select role</option>
+                <option value="admin">Admin</option>
+                <option value="editor">Editor</option>
+                <option value="viewer">Viewer</option>
+            </select>
+            <button id="post-btn" onclick="postUser()">Submit User (POST)</button>
+        </div>
+        <hr>
+        <div class="get-container">
+            <div>
+                <button id="get-btn" onclick="fetchUsers()">Fetch Data from Database (GET)</button>
+            </div>
+            <div class="cards-container">
+
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    let postBtn = document.querySelector('#post-btn');
+    let getBtn = document.querySelector('#get-btn');
+    postBtn.addEventListener('click',()=>{
+        //remainingg posting data using api endpoint 
+    });
+
+    getBtn.addEventListener('click',()=>{
+        //remainingg to fetch
+
+    });
+
+</script>
+</html>
