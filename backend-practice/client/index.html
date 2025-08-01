@@ -72,6 +72,14 @@
         .get-container button:hover {
             background-color: rgb(57, 110, 5);
         }
+        .cards-container{
+            display: flex;
+
+        }
+        .cards-container div{
+            margin: 20px;
+            padding: 10px;
+        }
     </style>
 </head>
 
@@ -103,6 +111,7 @@
 <script>
     let postBtn = document.querySelector('#post-btn');
     let getBtn = document.querySelector('#get-btn');
+
     postBtn.addEventListener('click', () => {
         let ipname = document.querySelector('#name');
         let ipemail = document.querySelector('#email');
@@ -114,34 +123,48 @@
             age: Number(ipage.value),
             role: iprole.value
         }
-            fetch('http://localhost:5000/api/user/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(userData)
+        fetch('http://localhost:5000/api/user/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userData)
+        })
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`Server error! : ${res.status}`);
+                }
+                return res.json();
             })
-                .then(res => {
-                    if (!res.ok) {
-                        throw new Error(`Server error! : ${res.status}`);
-                    }
-                    return res.json();
-                })
-                .then(data => {
-                    console.log('Success : ',data)
-                    alert('User registered successfully!');
-                })
-                 .catch(error => {
-                    console.error('Error:', error);
+            .then(data => {
+                console.log('Success : ', data)
+                alert('User registered successfully!');
+            })
+            .catch(error => {
+                console.error('Error:', error);
                 alert('Registration failed.');
-                });
+            });
     });
 
     getBtn.addEventListener('click', () => {
-        //remainingg to fetch
-
-    });
-
+        let cardContainer = document.querySelector(".cards-container");
+        let users = fetch("http://localhost:5000/api/user/")
+            .then(res => res.json())
+            .then(users => {
+                users.forEach(user => {
+                    let card = document.createElement("div");
+                    card.className = "details-card"
+                    card.innerHTML = `<h4>Name : ${user.name}</h4>
+                                    <h4>Email : ${user.email}</h4>
+                                    <h4>Age : ${user.age}</h4>
+                                    <h4>Role : ${user.role}</h4>
+                                    <h4>Created At : ${user.createdAt}</h4>`;
+                                    card.style.backgroundColor = "red";
+                    cardContainer.append(card);
+                })
+            })
+            .catch(err => console.log("server error : ", err))
+    })
 </script>
 
 </html>
