@@ -1,4 +1,3 @@
-🔢	API Name	Description	Base URL
 1️⃣	JSONPlaceholder	Fake REST API for testing (users, posts, comments, etc.)	https://jsonplaceholder.typicode.com
 2️⃣	Cat Facts	Get random cat facts 🐱	https://catfact.ninja/fact
 3️⃣	Advice Slip	Random advice generator	https://api.adviceslip.com/advice

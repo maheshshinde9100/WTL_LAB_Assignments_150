@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <style>
+        .main-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .login-card {
+            margin: 50px;
+            padding: 20px;
+            background-color: antiquewhite;
+            border-radius: 30px;
+            box-shadow: 10px 10px 10px 0px black;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-form * {
+            width: 400px;
+            margin: 20px;
+            padding: 10px;
+            height: 50px;
+            border-radius: 20px;
+        }
+
+        select {
+            background-color: aquamarine;
+        }
+
+        select:hover {
+            box-shadow: 10px 10px 10px 0 skyblue;
+        }
+
+        h1,
+        h3 {
+            text-align: center;
+        }
+
+        input:hover {
+            box-shadow: 10px 10px 10px 0 green;
+        }
+
+        .login-card:hover {
+            box-shadow: 10px 10px 10px 0px rgb(142, 18, 199);
+        }
+    </style>
+    <script>
+        let postBtn = document.querySelector('#register-btn');
+
+        postBtn.addEventListener('click', () => {
+            let ipname = document.querySelector('#name');
+            let ipemail = document.querySelector('#email');
+            let ipage = document.querySelector('#age');
+            let iprole = document.querySelector('#role');
+            const userData = {
+                name: ipname.value,
+                email: ipemail.value,
+                age: Number(ipage.value),
+                role: iprole.value
+            }
+            fetch('http://localhost:5000/api/user/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData)
+            })
+                .then(res => {
+                    if (!res.ok) {
+                        throw new Error(`Server error! : ${res.status}`);
+                    }
+                    return res.json();
+                })
+                .then(data => {
+                    console.log('Success : ', data)
+                    alert('User registered successfully!');
+                    window.location.href = "register.html";
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Registration failed.');
+                });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="login-card">
+            <form class="login-form">
+                <h1>Registration Form</h1>
+                <input id="name" type="text" placeholder="Enter fullname">
+                <input id="email" type="email" placeholder="xyz@email.com">
+                <input id="age" type="number" placeholder="Enter age">
+
+                <select id="role">
+                    <option selected disabled>select role</option>
+                    <option value="admin">Admin</option>
+                    <option value="editor">Editor</option>
+                    <option value="viewer">Viewer</option>
+                </select>
+                <input id="register-btn" type="button" value="REGISTER">
+                <h3>already have an account?<a href="login.html">Login</a></h3>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
