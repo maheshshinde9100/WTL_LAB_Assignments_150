@@ -3,54 +3,472 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List of WTL Assignments</title>
+    <title>WTL Assignments - Portfolio</title>
     <style>
-        body {
-            background: linear-gradient(120deg, #f8fafc 0%, #e0e7ff 100%);
-            font-family: 'Segoe UI', Arial, sans-serif;
-            min-height: 100vh;
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --accent-color: #06b6d4;
+            --text-dark: #0f172a;
+            --text-light: #64748b;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --shadow-primary: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            --shadow-glow: 0 0 40px rgba(99, 102, 241, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+
+        .particle:nth-child(odd) {
+            background: rgba(99, 102, 241, 0.4);
+            animation-duration: 25s;
+        }
+
+        .particle:nth-child(3n) {
+            background: rgba(139, 92, 246, 0.4);
+            animation-duration: 30s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0px);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Main Container */
+        .container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+            position: relative;
         }
-        h1 {
-            color: #1e293b;
-            margin-bottom: 24px;
-            font-size: 2.2rem;
-            letter-spacing: 1px;
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
         }
-        ol {
-            background: #fff;
-            padding: 32px 40px;
+
+        .title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Student Info Styles */
+        .student-info {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 16px;
-            box-shadow: 0 4px 24px rgba(30,41,59,0.08);
-            list-style: decimal inside;
-            min-width: 340px;
+            padding: 1.5rem 2rem;
+            margin-top: 1rem;
+            text-align: center;
         }
-        li {
-            margin: 18px 0;
-            font-size: 1.1rem;
+
+        .student-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
         }
-        a {
-            color: #2563eb;
-            text-decoration: none;
-            transition: color 0.2s;
+
+        .student-details {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
             font-weight: 500;
+            letter-spacing: 0.3px;
         }
-        a:hover {
-            color: #1e40af;
-            text-decoration: underline;
+
+        /* Cards Container */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        /* Assignment Cards */
+        .assignment-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-primary);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .assignment-card:nth-child(1) { animation-delay: 0.5s; }
+        .assignment-card:nth-child(2) { animation-delay: 0.7s; }
+        .assignment-card:nth-child(3) { animation-delay: 0.9s; }
+        .assignment-card:nth-child(4) { animation-delay: 1.1s; }
+
+        .assignment-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            transform-origin: left;
+        }
+
+        .assignment-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-glow);
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+
+        .assignment-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 16px rgba(99, 102, 241, 0.3);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .card-description {
+            color: var(--text-light);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 12px;
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .card-link:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        }
+
+        .card-link::after {
+            content: '→';
+            transition: transform 0.3s ease;
+        }
+
+        .card-link:hover::after {
+            transform: translateX(4px);
+        }
+
+        /* Status Badge */
+        .status-badge {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            padding: 0.4rem 1rem;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-coming-soon {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .cards-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .assignment-card {
+                padding: 2rem;
+            }
+
+            .title {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Coming Soon Card Style */
+        .coming-soon {
+            opacity: 0.8;
+            position: relative;
+        }
+
+        .coming-soon::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            pointer-events: none;
+        }
+
+        .coming-soon .card-link {
+            opacity: 0.6;
+            pointer-events: none;
         }
     </style>
 </head>
 <body>
-    <h1>WTL Assignments 150</h1>
-    <ol>
-        <li><a href="Assignment_01/index.html">Assignment 1: Samsung Store Clone</a></li>
-        <li><a href="Assignment_02/index.html">Assignment 2: TODO List Application</a></li>
-        <li><a href="Assignment_03/index.html">Assignment 3: Fetching Data from Public API</a></li>
-    </ol>
+    <div class="bg-animation"></div>
+    
+    <div class="particles">
+        <!-- Particles will be generated by JavaScript -->
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1 class="title">WTL Assignments</h1>
+            <p class="subtitle">Web Technology Laboratory</p>
+            <div class="student-info">
+                <p class="student-name">Student Name: Shinde Mahesh Tulshiram</p>
+                <p class="student-details">Roll No: 150 | Class: TY-COMP-B | Batch: BT3</p>
+            </div>
+        </div>
+
+        <div class="cards-container">
+            <div class="assignment-card">
+                <div class="status-badge">Completed</div>
+                <div class="card-number">01</div>
+                <h3 class="card-title">Samsung Store Clone</h3>
+                <!-- <p class="card-description">A pixel-perfect recreation of Samsung's e-commerce interface featuring responsive design, modern UI components, and interactive elements.</p> -->
+                <a href="Assignment_01/index.html" class="card-link">View Project</a>
+            </div>
+
+            <div class="assignment-card">
+                <div class="status-badge">Completed</div>
+                <div class="card-number">02</div>
+                <h3 class="card-title">TODO List Application</h3>
+                <!-- <p class="card-description">An interactive task management application with CRUD operations, local storage persistence, and intuitive user experience design.</p> -->
+                <a href="Assignment_02/index.html" class="card-link">View Project</a>
+            </div>
+
+            <div class="assignment-card">
+                <div class="status-badge">Completed</div>
+                <div class="card-number">03</div>
+                <h3 class="card-title">API Data Integration</h3>
+                <!-- <p class="card-description">Dynamic web application demonstrating REST API consumption, data visualization, and real-time content updates using modern JavaScript.</p> -->
+                <a href="Assignment_03/index.html" class="card-link">View Project</a>
+            </div>
+
+            <!-- <div class="assignment-card coming-soon">
+                <div class="status-badge status-coming-soon">Coming Soon</div>
+                <div class="card-number">04</div>
+                <h3 class="card-title">Advanced Web Features</h3>
+                <p class="card-description">Upcoming assignment focusing on advanced web technologies, progressive web apps, and cutting-edge development practices.</p>
+                <a href="#" class="card-link">Coming Soon</a>
+            </div> -->
+        </div>
+    </div>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.querySelector('.particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random starting position
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 20) + 's';
+                
+                // Random size variation
+                const size = Math.random() * 3 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Add hover effect for cards
+        function addCardEffects() {
+            const cards = document.querySelectorAll('.assignment-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        }
+
+        // Add subtle parallax effect
+        function addParallaxEffect() {
+            document.addEventListener('mousemove', (e) => {
+                const cards = document.querySelectorAll('.assignment-card');
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                
+                cards.forEach((card, index) => {
+                    const xOffset = (x - 0.5) * 10 * (index + 1);
+                    const yOffset = (y - 0.5) * 5 * (index + 1);
+                    
+                    card.style.transform = `translate(${xOffset}px, ${yOffset}px) translateY(0px)`;
+                });
+            });
+        }
+
+        // Initialize all effects
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            addCardEffects();
+            addParallaxEffect();
+        });
+
+        // Add smooth scrolling for future navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
