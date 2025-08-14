@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jokes</title>
+    <style>
+        .container{
+            background-color: rgb(148, 86, 249);
+           display: flex;
+           flex-wrap: wrap;
+        }
+        button{
+            width: 100px;
+            height: 50px;
+            text-align: center;
+            justify-content: center;
+            align-self: center;
+            border-radius: 20px;
+        }
+        .part1{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @media (max-width : 520px) {
+            .container{
+                flex-direction: column;
+            }
+            .card{
+                width: 200px;
+            }
+             button{
+                width: 100px;
+                height: 50px;
+             }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="part1">
+            <button onclick="fetchJokes()">Fetch Jokes</button><br>
+        </div>
+    </div>
+</body>
+<script>
+    async function fetchJokes(){
+        try{
+        let container = document.querySelector('.container')
+        let response = await fetch("https://v2.jokeapi.dev/joke/Programming");
+        // console.log(response)
+        let obj = await response.json();
+        console.log(obj)
+                let card = document.createElement('div');
+                card.innerHTML = `Joke Category : ${obj['category']}<br>
+                                Setup : ${obj['setup']} <br>
+                                Delivery : ${obj['delivery']}
+                `;
+                card.className = 'card';
+                card.style.backgroundColor = "yellow";
+                card.style.borderRadius = "20px";
+                card.style.margin = "20px";
+                card.style.padding = "20px";
+
+                container.appendChild(card);
+        }catch(e){
+            console.log(e);
+        }
+    }
+</script>
+</html>
