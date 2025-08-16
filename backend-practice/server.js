@@ -1,23 +1,26 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const cors = require('cors');
-
-const PORT = 5000;
-
-const MongoURI = "mongodb://localhost:27017/practice-nodejs";
-
+const cors = require('cors')
 const app = express()
 
+const PORT = 5000;
+app.use(cors())
 app.use(express.json())
 
-app.use(cors())
+const mongoURI = 'mongodb://localhost:27017/practice-nodejs';
 
-mongoose.connect(MongoURI)
-    .then(() => console.log("Mongodb connected successfully..: "))
-    .catch(err => console.log("Mongodb connection error..: ",err))
+async function connectToDB(){
+    try{
+        await mongoose.connect(mongoURI)
+        console.log('Connected to MongoDB ✌️')
 
-// API routes    
-app.use('/api/', require("./routes/HealthCheck"))
-app.use('/api/user', require("./routes/UserRoute"))
+    }catch(err){
+        console.log('failed to connect to MongoDB ❌')
+    }
+}
+connectToDB();
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.use('/api',require('./routes/HealthCheck'))
+app.use('/api/users', require('./routes/UserRoute'))
+
+app.listen(PORT, () => console.log(`server is running on ${PORT}`));

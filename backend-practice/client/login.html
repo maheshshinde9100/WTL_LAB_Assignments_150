@@ -5,82 +5,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
     <style>
-        .main-container{
+        .main-container {
             display: flex;
             justify-content: center;
         }
-        .login-card{
+        .login-card {
             margin: 50px;
             padding: 20px;
             background-color: antiquewhite;
             border-radius: 30px;
             box-shadow: 10px 10px 10px 0px black;
         }
-        .login-form{
+        .login-form {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
         }
-        .login-form *{
+        .login-form * {
             width: 400px;
             margin: 20px;
             padding: 10px;
             height: 50px;
             border-radius: 20px;
         }
-        h1,h3{
+        h1, h3 {
             text-align: center;
         }
-        input:hover{
+        input:hover {
             box-shadow: 10px 10px 10px 0 green;
         }
-        .login-card:hover{
+        .login-card:hover {
             box-shadow: 10px 10px 10px 0px rgb(142, 18, 199);
         }
     </style>
-    <script>
-        let getBtn = document.getElementById("login-btn");
-        getBtn.addEventListener('click', () => {
-        // let cardContainer = document.querySelector(".cards-container");
-        // let users = fetch("http://localhost:5000/api/user/")
-        //     .then(res => res.json())
-        //     .then(users => {
-        //         users.forEach(user => {
-        //             let card = document.createElement("div");
-        //             card.className = "user-card"
-        //             card.innerHTML = `<h4>Name : ${user.name}</h4>
-        //                             <h4>Email : ${user.email}</h4>
-        //                             <h4>Age : ${user.age}</h4>
-        //                             <h4>Role : ${user.role}</h4>
-        //                             <h4>Created At : ${user.createdAt}</h4>`;
-        //             cardContainer.append(card);
-        //         })
-        //     })
-        //     .catch(err => console.log("server error : ",err))
-        
-        let username = document.getElementById("username").value;
-        let password = document.getElementById("password").value;
-        if(username!="" && password!=""){
-            alert("Navigating to Home page...")
-            window.location.href="index.html";
-        }else{
-            alert("Enter all the required details..")
-        }
-    })
-    </script>
 </head>
 <body>
     <div class="main-container">
         <div class="login-card">
-            <form class="login-form">
+            <form class="login-form" id="loginForm">
                 <h1>Login Form</h1>
-                <input id="username" type="text" placeholder="enter username">
-                <input id="password" type="text" placeholder="enter password">
-                <input id="login-btn" type="button" value="LOGIN">
+                <input id="username" type="text" placeholder="enter username/email" required>
+                <input id="password" type="password" placeholder="enter password" required>
+                <button type="submit" id="login-btn">LOGIN</button>
+                <p id="para">status : </p>
                 <h3>Not registered yet?<a href="register.html">Register</a></h3>
             </form>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const status = document.querySelector('#para');
+            const loginForm = document.getElementById('loginForm');
+            
+            loginForm.addEventListener('submit', async function(e) {
+                e.preventDefault(); 
+                
+                try {
+                    const username = document.getElementById('username').value;
+                    const password = document.getElementById('password').value;
+                    
+                    if(!username || !password) {
+                        status.textContent = 'status: Please enter all fields!';
+                        return;
+                    }
+                    
+                    const response = await fetch('http://localhost:5000/api/users/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            email: username, 
+                            password: password
+                        })
+                    });
+
+                    const data = await response.json();
+                    
+                    if (!response.ok) {
+                        throw new Error(data.msg || 'Login failed');
+                    }
+                    
+                    console.log('Login success:', data);
+                    status.textContent = 'status: ' + data.msg;
+                    
+                    if (data.msg === 'login succesful') {
+                        window.location.href = '/client/index.html'; 
+                    }
+                    
+                } catch (err) {
+                    console.error('Login error:', err);
+                    status.textContent = 'status: ' + err.message;
+                }
+            });
+        });
+    </script>
 </body>
 </html>

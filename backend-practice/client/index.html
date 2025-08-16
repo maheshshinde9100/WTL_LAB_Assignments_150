@@ -154,99 +154,17 @@
     }
   </style>
 </head>
-
+<!-- this page working as a dashboard -->
 <body>
     <div class="main-container">
-        <!-- <div class="post-container">
-            <div class="post-container-part1">
-            <input id="name" type="text" placeholder="Enter fullname">
-            <input id="email" type="email" placeholder="xyz@email.com">
-            <input id="age" type="number" placeholder="Enter age">
-            <select id="role">
-                <option selected disabled>select role</option>
-                <option value="admin">Admin</option>
-                <option value="editor">Editor</option>
-                <option value="viewer">Viewer</option>
-            </select>
-            </div>
-            <div class="post-container-part2">
-            <button id="post-btn" onclick="postUser()">Submit User (POST)</button>
-            </div>
-        </div>
-        <hr>
-        <div class="get-container">
-            <div>
-                <button id="get-btn" onclick="fetchUsers()">Fetch Data from Database (GET)</button>
-            </div>
-            <div class="cards-container">
-
-            </div>
-        </div> -->
-    
+      <button><a href='login.html'> Log Out</a></button>
         <div class="cards-container">
         </div>
       </div>
 </body>
 <script>
-    // let postBtn = document.querySelector('#post-btn');
-    // let getBtn = document.querySelector('#get-btn');
-
-    // postBtn.addEventListener('click', () => {
-    //     let ipname = document.querySelector('#name');
-    //     let ipemail = document.querySelector('#email');
-    //     let ipage = document.querySelector('#age');
-    //     let iprole = document.querySelector('#role');
-    //     const userData = {
-    //         name: ipname.value,
-    //         email: ipemail.value,
-    //         age: Number(ipage.value),
-    //         role: iprole.value
-    //     }
-    //     fetch('http://localhost:5000/api/user/register', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify(userData)
-    //     })
-    //         .then(res => {
-    //             if (!res.ok) {
-    //                 throw new Error(`Server error! : ${res.status}`);
-    //             }
-    //             return res.json();
-    //         })
-    //         .then(data => {
-    //             console.log('Success : ', data)
-    //             alert('User registered successfully!');
-    //         })
-    //         .catch(error => {
-    //             console.error('Error:', error);
-    //             alert('Registration failed.');
-    //         });
-    // });
-
-    // getBtn.addEventListener('click', () => {
-    //     let cardContainer = document.querySelector(".cards-container");
-    //     let users = fetch("http://localhost:5000/api/user/")
-    //         .then(res => res.json())
-    //         .then(users => {
-    //             users.forEach(user => {
-    //                 let card = document.createElement("div");
-    //                 card.className = "user-card"
-    //                 card.innerHTML = `<h4>Name : ${user.name}</h4>
-    //                                 <h4>Email : ${user.email}</h4>
-    //                                 <h4>Age : ${user.age}</h4>
-    //                                 <h4>Role : ${user.role}</h4>
-    //                                 <h4>Created At : ${user.createdAt}</h4>`;
-    //                 cardContainer.append(card);
-    //             })
-    //         })
-    //         .catch(err => console.log("server error : ",err))
-    // })
-
-
 let cardContainer = document.querySelector(".cards-container");
-let users = fetch("http://localhost:5000/api/user/")
+let users = fetch("http://localhost:5000/api/users/all-users")
             .then(res => res.json())
             .then(users => {
                 users.forEach(user => {

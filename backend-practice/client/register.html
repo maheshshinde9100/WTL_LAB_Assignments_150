@@ -28,7 +28,7 @@
 
         .login-form * {
             width: 400px;
-            margin: 20px;
+            margin: 10px;
             padding: 10px;
             height: 50px;
             border-radius: 20px;
@@ -55,53 +55,14 @@
             box-shadow: 10px 10px 10px 0px rgb(142, 18, 199);
         }
     </style>
-    <script>
-        let postBtn = document.querySelector('#register-btn');
-
-        postBtn.addEventListener('click', () => {
-            let ipname = document.querySelector('#name');
-            let ipemail = document.querySelector('#email');
-            let ipage = document.querySelector('#age');
-            let iprole = document.querySelector('#role');
-            const userData = {
-                name: ipname.value,
-                email: ipemail.value,
-                age: Number(ipage.value),
-                role: iprole.value
-            }
-            fetch('http://localhost:5000/api/user/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(userData)
-            })
-                .then(res => {
-                    if (!res.ok) {
-                        throw new Error(`Server error! : ${res.status}`);
-                    }
-                    return res.json();
-                })
-                .then(data => {
-                    console.log('Success : ', data)
-                    alert('User registered successfully!');
-                    window.location.href = "register.html";
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Registration failed.');
-                });
-        });
-    </script>
-</head>
-
-<body>
+    <body>
     <div class="main-container">
         <div class="login-card">
             <form class="login-form">
                 <h1>Registration Form</h1>
                 <input id="name" type="text" placeholder="Enter fullname">
                 <input id="email" type="email" placeholder="xyz@email.com">
+                <input id="password" type="password" placeholder="password">
                 <input id="age" type="number" placeholder="Enter age">
 
                 <select id="role">
@@ -110,11 +71,78 @@
                     <option value="editor">Editor</option>
                     <option value="viewer">Viewer</option>
                 </select>
-                <input id="register-btn" type="button" value="REGISTER">
+                <button id="register-btn" type="button">REGISTER</button> <!-- Added type="button" -->
+                <p id="para">status : </p>
                 <h3>already have an account?<a href="login.html">Login</a></h3>
             </form>
         </div>
     </div>
-</body>
 
+    <script>
+            let status = document.querySelector('#para');
+            let btn = document.getElementById('register-btn');
+            
+            btn.addEventListener('click', function () {
+                let name = document.getElementById('name').value;
+                let email = document.getElementById('email').value;
+                let password = document.getElementById('password').value;
+                let age = document.getElementById('age').value; 
+                let role = document.getElementById('role').value;
+                let date = Date.now();
+
+                if (!name || !email || !password || !role || !age || role === "select role") {
+                    console.error('ERROR : enter required fields');
+                    status.textContent = 'status : Enter All Fields!!!';
+                    status.style.color ='red';
+
+                } else {
+                    register(name, email, password,age, role, date);
+                }
+            });
+
+            
+    async function register(name, email, password, age, role, date) {
+    const user = {
+        name: name,
+        email: email,
+        password: password,
+        age: Number(age), 
+        role: role,
+        createdAt: date
+    };
+    try {
+        const response = await fetch('http://localhost:5000/api/users/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        });
+        
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.msg || 'Registration failed');
+        }
+        
+        const msg = await response.json();
+        console.log(msg);
+        status.textContent = 'status : ' + msg.msg; 
+        status.style.color ='yellow';
+
+        
+        if(response.ok){
+            setTimeout(() => {
+                window.location.href = '/client/login.html';
+            }, 2000);
+        }
+        
+
+    } catch (err) {
+        console.error('server error:', err);
+        status.textContent = 'status : ' + err.message;
+        status.style.color ='green';
+    }
+}
+    </script>
+</body>
 </html>
