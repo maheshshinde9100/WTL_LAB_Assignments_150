@@ -1,18 +1,4 @@
-<!-- # WTL Lab Assignments
-
-This repository contains assignments and practice code for the Web Technology Lab (WTL) subject, as part of the Semester 5 curriculum at SCOE.
-
-## Contents
-
-- **HTML, CSS, JS files**: Standalone assignments and practice files (`index.html`, `contact.css`, `script.js`, etc.)
-
-In future, this repository will also include assignments and practice code for:
-- **Node.js**
-- **Express.js**
-- **React** projects
-- HTML, CSS, and JavaScript practice
--->
-## Assignments
+## All Assignments : https://maheshshinde9100.github.io/WTL_LAB_Assignments_150/
 
 ### Assignment 1: Deployed Link: [https://wtl-assignments-150.netlify.app/assignment_01/](https://wtl-assignments-150.netlify.app/assignment_01/)
 
