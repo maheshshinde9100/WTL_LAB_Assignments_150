@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+PHP Practice
+</head>
+<body>
+    <!-- <form action="http://localhost:80/test.php" method="POST"> -->
+    <form>
+        <!-- <input id="username" type="text" placeholder="username" name="username">
+        <input id="password" type="password" placeholder="password" name="password"> -->
+        <input id="studID" type="number" placeholder="Enter Student ID " name="studID">
+        <button type="submit" onclick="getData()">SUBMIT</button>
+    </form>
+</body>
+<script>
+    async function getData(){
+        let id = document.getElementById('studID').value;
+        const response = await fetch(`http://localhost/login.php?id=${id}`);
+        const data = await response.text();
+        // const data = await response.json();
+        document.write(data);
+    }
+
+</script>
+</html>
