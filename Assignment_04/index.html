@@ -1,495 +1,108 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Practice CRUD</title>
-</head>
-<body>
-    <div>
-        <form>
-            <input type="text" id="name" name="name" placeholder="enter your name here">
-            <input type="number" id="marks" name="marks" placeholder="enter marks here">
-            <br>
-            <button id="insert" onclick="clicked(event)">Click to insert</button>
-            <button id="update" onclick="clicked(event)">Click to update</button>
-            <button id="delete" onclick="clicked(event)">Click to delete</button>
-            <button id="get" onclick="clicked(event)">Click to Get Data</button>
-        </form>
-    </div>
-    <script>
-        async function clicked(e){
-            let name = document.getElementById('name').value;
-            let marks = document.getElementById('marks').value;
-            const obj = {
-                "name": name,
-                "marks": marks
-            }
-            switch(e.target.id){
-                case "insert":
-                    let res  = await fetch("http://localhost/php/CRUD/insert.php",{
-                        method:"POST",
-                        headers:{
-                            "Content-Type":"application/json"
-                        },
-                        body: JSON.stringify(obj)
-                    })
-
-                    let data = await res.json();
-                    console.log("Inserted :> "+data);
-                    break;
-                case "update":
-                    res  = await fetch("http://localhost/php/CRUD/update.php",{
-                        method:"PUT",
-                        headers:{
-                            "Content-Type":"application/json"
-                        },
-                        body:JSON.stringify(obj)
-                    })
-
-                    data = await res.json();
-                    console.log("Updated :> "+data);
-                    break;
-                case "delete":
-                    res = await fetch("http://localhost/php/CRUD/delete.php",{
-                        method:"DELETE",
-                        headers:{
-                            "Content-Type":"application/json"
-                        },
-                        body:JSON.stringify(obj)
-                    })
-
-                    data = await res.json();
-                    console.log("Deleted :> "+data);
-                    break;
-
-                case "get":
-                    res = await fetch("http://localhost/php/CRUD/read.php")
-                    data = await res.json();
-                    console.log("Fetched Data :> "+data);
-                    break;
-            }
-        }
-    </script>
-</body>
-</html> -->
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student CRUD Application</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #f5f7fa;
-            color: #333;
-            line-height: 1.6;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        
-        .description {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-        
-        .content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-        }
-        
-        .form-section {
-            flex: 1;
-            min-width: 300px;
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .results-section {
-            flex: 1;
-            min-width: 300px;
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        h2 {
-            margin-bottom: 20px;
-            color: #2c3e50;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #eee;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #2c3e50;
-        }
-        
-        input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            transition: border 0.3s;
-        }
-        
-        input:focus {
-            outline: none;
-            border-color: #3498db;
-            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
-        }
-        
-        .buttons {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 10px;
-            margin-top: 25px;
-        }
-        
-        button {
-            padding: 12px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-        
-        #insert {
-            background-color: #2ecc71;
-            color: white;
-        }
-        
-        #insert:hover {
-            background-color: #27ae60;
-        }
-        
-        #update {
-            background-color: #3498db;
-            color: white;
-        }
-        
-        #update:hover {
-            background-color: #2980b9;
-        }
-        
-        #delete {
-            background-color: #e74c3c;
-            color: white;
-        }
-        
-        #delete:hover {
-            background-color: #c0392b;
-        }
-        
-        #get {
-            background-color: #f39c12;
-            color: white;
-        }
-        
-        #get:hover {
-            background-color: #d35400;
-        }
-        
-        #getAll {
-            background-color: #9b59b6;
-            color: white;
-        }
-        
-        #getAll:hover {
-            background-color: #8e44ad;
-        }
-        
-        .response {
-            margin-top: 25px;
-            padding: 15px;
-            border-radius: 5px;
-            background-color: #f8f9fa;
-            border-left: 4px solid #3498db;
-        }
-        
-        .response h3 {
-            margin-bottom: 10px;
-            color: #2c3e50;
-        }
-        
-        pre {
-            white-space: pre-wrap;
-            word-break: break-all;
-            background: #2c3e50;
-            color: #ecf0f1;
-            padding: 15px;
-            border-radius: 5px;
-            max-height: 300px;
-            overflow-y: auto;
-        }
-        
-        .student-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        
-        .student-table th, .student-table td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        .student-table th {
-            background-color: #f2f2f2;
-            font-weight: 600;
-        }
-        
-        .student-table tr:hover {
-            background-color: #f5f5f5;
-        }
-        
-        .issues {
-            background-color: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 20px;
-            margin-top: 30px;
-            border-radius: 5px;
-        }
-        
-        .issues h3 {
-            color: #856404;
-            margin-bottom: 15px;
-        }
-        
-        .issues ul {
-            padding-left: 20px;
-        }
-        
-        .issues li {
-            margin-bottom: 10px;
-        }
-        
-        @media (max-width: 768px) {
-            .content {
-                flex-direction: column;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student CRUD Application</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f5f7fa; }
+    header { text-align: center; margin-bottom: 20px; }
+    .buttons { display: flex; gap: 10px; margin-top: 15px; }
+    button { padding: 10px 15px; cursor: pointer; }
+    .response { margin-top: 20px; background: #eee; padding: 10px; border-radius: 5px; }
+    .student-table { margin-top: 20px; border-collapse: collapse; width: 100%; }
+    .student-table th, .student-table td { border: 1px solid #ccc; padding: 8px; }
+  </style>
 </head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Student CRUD Application</h1>
-            <p class="description">Create, Read, Update, and Delete student records</p>
-        </header>
-        
-        <div class="content">
-            <div class="form-section">
-                <h2>Student Form</h2>
-                <form id="studentForm">
-                    <div class="form-group">
-                        <label for="name">Student Name:</label>
-                        <input type="text" id="name" name="name" placeholder="Enter student name" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="marks">Marks:</label>
-                        <input type="number" id="marks" name="marks" placeholder="Enter marks" min="0" max="100" required>
-                    </div>
-                    
-                    <div class="buttons">
-                        <button type="button" id="insert">Insert</button>
-                        <button type="button" id="update">Update</button>
-                        <button type="button" id="delete">Delete</button>
-                        <button type="button" id="get">Get Data</button>
-                        <button type="button" id="getAll">Get All Data</button>
-                    </div>
-                </form>
-                
-                <div class="response">
-                    <h3>API Response</h3>
-                    <pre id="apiResponse">// Response will appear here</pre>
-                </div>
-            </div>
-            
-            <div class="results-section">
-                <h2>Student Records</h2>
-                <div id="studentData">
-                    <p>Student data will be displayed here after fetching.</p>
-                </div>
-            </div>
-        </div>
-    </div>
+<body onload="openHosted()">
+  <header>
+    <h1>Student CRUD Application</h1>
+    <p>Manage student records</p>
+  </header>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const insertBtn = document.getElementById('insert');
-            const updateBtn = document.getElementById('update');
-            const deleteBtn = document.getElementById('delete');
-            const getBtn = document.getElementById('get');
-            const getAllBtn = document.getElementById('getAll');
-            const nameInput = document.getElementById('name');
-            const marksInput = document.getElementById('marks');
-            const responseElement = document.getElementById('apiResponse');
-            const studentDataElement = document.getElementById('studentData');
-            
-            async function makeRequest(url, method, data = null) {
-                try {
-                    const options = {
-                        method: method,
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    };
-                    
-                    if (data) {
-                        options.body = JSON.stringify(data);
-                    }
-                    
-                    const response = await fetch(url, options);
-                    const responseData = await response.json();
-                    
-                    //displayy response
-                    responseElement.textContent = JSON.stringify(responseData, null, 2);
-                    
-                    if (response.ok && method === 'GET') {
-                        displayStudentData(responseData);
-                    }
-                    
-                    return responseData;
-                } catch (error) {
-                    responseElement.textContent = `Error: ${error.message}`;
-                    console.error('Error:', error);
-                }
-            }
-            
-            function displayStudentData(data) {
-                if (!data || (Array.isArray(data) && data.length === 0)) {
-                    studentDataElement.innerHTML = '<p>No student data found.</p>';
-                    return;
-                }
-                
-                const students = Array.isArray(data) ? data : [data];
-                
-                let tableHTML = `
-                    <table class="student-table">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Marks</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                `;
-                
-                students.forEach(student => {
-                    tableHTML += `
-                        <tr>
-                            <td>${student.name}</td>
-                            <td>${student.marks}</td>
-                        </tr>
-                    `;
-                });
-                
-                tableHTML += `
-                        </tbody>
-                    </table>
-                `;
-                
-                studentDataElement.innerHTML = tableHTML;
-            }
-            
-            insertBtn.addEventListener('click', async () => {
-                if (!nameInput.value || !marksInput.value) {
-                    responseElement.textContent = 'Please enter both name and marks';
-                    return;
-                }
-                
-                const studentData = {
-                    name: nameInput.value,
-                    marks: parseInt(marksInput.value)
-                };
-                
-                await makeRequest('api/insert.php', 'POST', studentData);
-            });
-            
-            updateBtn.addEventListener('click', async () => {
-                if (!nameInput.value || !marksInput.value) {
-                    responseElement.textContent = 'Please enter both name and marks';
-                    return;
-                }
-                
-                const studentData = {
-                    name: nameInput.value,
-                    marks: parseInt(marksInput.value)
-                };
-                
-                await makeRequest('api/update.php', 'PUT', studentData);
-            });
-            
-            deleteBtn.addEventListener('click', async () => {
-                if (!nameInput.value) {
-                    responseElement.textContent = 'Please enter a name to delete';
-                    return;
-                }
-                
-                const studentData = {
-                    name: nameInput.value
-                };
-                
-                await makeRequest('api/delete.php', 'DELETE', studentData);
-            });
-            
-            getBtn.addEventListener('click', async () => {
-                if (!nameInput.value) {
-                    responseElement.textContent = 'Please enter a name to search';
-                    return;
-                }
-                
-                await makeRequest(`api/read.php?name=${encodeURIComponent(nameInput.value)}`, 'GET');
-            });
-            
-            getAllBtn.addEventListener('click', async () => {
-                await makeRequest('api/read.php', 'GET');
-            });
+  <div>
+    <label>Name: <input type="text" id="name"></label><br><br>
+    <label>Marks: <input type="number" id="marks"></label><br>
+
+    <div class="buttons">
+      <button id="insert">Insert</button>
+      <button id="update">Update</button>
+      <button id="delete">Delete</button>
+      <button id="get">Get One</button>
+      <button id="getAll">Get All</button>
+    </div>
+  </div>
+
+  <div class="response">
+    <h3>API Response</h3>
+    <pre id="apiResponse">// Response will appear here</pre>
+  </div>
+
+  <div id="studentData"></div>
+
+  <script>
+    function openHosted(){
+        //opening deployed site
+        window.location.href = "https://mahesh-shinde.page.gd/index.html";
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      const nameInput = document.getElementById('name');
+      const marksInput = document.getElementById('marks');
+      const responseElement = document.getElementById('apiResponse');
+      const studentDataElement = document.getElementById('studentData');
+
+      async function makeRequest(url, method, data = null) {
+        try {
+          const options = { method, headers: { 'Content-Type': 'application/json' } };
+          if (data) options.body = JSON.stringify(data);
+
+          const response = await fetch(url, options);
+          const text = await response.text(); // debug mode
+          console.log("RAW RESPONSE:", text);
+
+          let responseData;
+          try { responseData = JSON.parse(text); }
+          catch { throw new Error("Invalid JSON: " + text); }
+
+          responseElement.textContent = JSON.stringify(responseData, null, 2);
+          if (response.ok && method === 'GET') displayStudentData(responseData);
+          return responseData;
+        } catch (error) {
+          responseElement.textContent = `Error: ${error.message}`;
+          console.error('Error:', error);
+        }
+      }
+
+      function displayStudentData(data) {
+        if (!data || (Array.isArray(data) && data.length === 0)) {
+          studentDataElement.innerHTML = '<p>No student data found.</p>';
+          return;
+        }
+        const students = Array.isArray(data) ? data : [data];
+        let tableHTML = `<table class="student-table"><tr><th>Name</th><th>Marks</th></tr>`;
+        students.forEach(s => {
+          tableHTML += `<tr><td>${s.name}</td><td>${s.marks}</td></tr>`;
         });
-    </script>
+        tableHTML += `</table>`;
+        studentDataElement.innerHTML = tableHTML;
+      }
+
+      document.getElementById('insert').onclick = () => {
+        makeRequest("insert.php", "POST", { name: nameInput.value, marks: parseInt(marksInput.value) });
+      };
+      document.getElementById('update').onclick = () => {
+        makeRequest("update.php", "PUT", { name: nameInput.value, marks: parseInt(marksInput.value) });
+      };
+      document.getElementById('delete').onclick = () => {
+        makeRequest("delete.php", "DELETE", { name: nameInput.value });
+      };
+      document.getElementById('get').onclick = () => {
+        makeRequest(`read.php?name=${encodeURIComponent(nameInput.value)}`, "GET");
+      };
+      document.getElementById('getAll').onclick = () => {
+        makeRequest("read.php", "GET");
+      };
+    });
+  </script>
 </body>
 </html>
