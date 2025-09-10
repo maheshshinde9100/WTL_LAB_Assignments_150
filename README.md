@@ -7,7 +7,7 @@
 
 ### Assignment 3: Deployed Link: [https://wtl-assignments-150.netlify.app/assignment_03/](https://wtl-assignments-150.netlify.app/assignment_03/)
 
-### Assignment 4: Cloud Deployed Link (html+php+phpMyAdmin): [https://mahesh-shinde.page.gd/index.html](https://mahesh-shinde.page.gd/index.html)
+### Assignment 4: Cloud Deployed Link (html+php+phpMyAdmin): [https://mahesh-shinde.page.gd](https://mahesh-shinde.page.gd)
 
 ## Author
 
