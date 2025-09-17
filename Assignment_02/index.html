@@ -54,14 +54,14 @@
         }
 
         #taskInput:focus {
-            border-color: #667eea;
+            border-color: #fcc214;
             box-shadow: 0 0 15px rgba(102, 126, 234, 0.3);
             transform: translateY(-2px);
         }
 
         #addBtn {
             padding: 15px 25px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
+            background: linear-gradient(45deg, #d7d710, #dc7405);
             color: white;
             border: none;
             border-radius: 25px;
@@ -106,7 +106,7 @@
             align-items: center;
             gap: 15px;
             transition: all 0.3s ease;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid #e30a0a;
         }
 
         .task-item:hover {
@@ -124,7 +124,7 @@
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            border: 2px solid #667eea;
+            border: 2px solid #e45f18;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
@@ -218,7 +218,7 @@
 
         header {
             width: 100%;
-            background: linear-gradient(90deg, #667eea 60%, #764ba2 100%);
+            background: linear-gradient(90deg, #ff7300 60%, #da7006 100%);
             color: white;
             padding: 18px 0 10px 0;
             margin-bottom: 30px;
@@ -247,7 +247,7 @@
         }
         footer {
             width: 100%;
-            background: linear-gradient(90deg, #667eea 60%, #764ba2 100%);
+            background: linear-gradient(90deg, #667eea 60%, #d35608 100%);
             color: #fff;
             text-align: center;
             padding: 16px 0 10px 0;
@@ -288,7 +288,7 @@
 
         <div id="tasksSection">
             <div id="activeTasksContainer">
-                <h3 style="margin-top:20px; margin-bottom:10px; color:#667eea;">Active Tasks</h3>
+                <h3 style="margin-top:20px; margin-bottom:10px; color:#efb300;">Active Tasks</h3>
                 <ul id="taskList">
                     <div class="empty-state" id="emptyState">
                         No tasks yet! Add one above to get started.
@@ -305,111 +305,82 @@
             Clear Completed Tasks
         </button>
     </div>
-    <script>
-        let tasks = [];
-        let taskId = 0;
+<script>
+  let count = 1; 
+  const taskInput = document.getElementById("taskInput");
+  const taskList = document.getElementById("taskList");
+  const completedTaskList = document.getElementById("completedTaskList");
+  const clearBtn = document.getElementById("clearBtn");
 
-        function addTask() {
-            const taskInput = document.getElementById('taskInput');
-            const taskText = taskInput.value.trim();
-            
-            if (taskText==='') {
-                taskInput.focus();
-                taskInput.style.borderColor='#ff6b6b';
-                setTimeout(() => {
-                    taskInput.style.borderColor='#e0e0e0';
-                }, 1000);
-                return;
-            }
+  function addTask() {
+    const taskText = taskInput.value.trim();
+    if (taskText === "") return;
 
-            const task = {
-                id: taskId++,
-                text: taskText,
-                completed: false,
-                createdAt: new Date()
-            };
+    const li = document.createElement("li");
+    li.classList.add("task-item");
+    li.innerHTML = `
+      <div class="task-checkbox" id="complete-${count}"></div>
+      <span class="task-text" id="task-${count}">${taskText}</span>
+      <button class="delete-btn" id="delete-${count}">DELETE</button>
+    `;
+    taskList.appendChild(li);
+    taskInput.value = "";
+    count++;
+    updateStats();
+  }
 
-            tasks.push(task);
-            taskInput.value = '';
-            renderTasks();
-            updateStats();
-        }
+  document.addEventListener("click", (event) => {
+    const targetId = event.target.id;
 
-        function deleteTask(id) {
-            tasks = tasks.filter(task => task.id !== id);
-            renderTasks();
-            updateStats();
-        }
+    if (targetId.startsWith("complete-")) {
+      const taskId = targetId.split("-")[1];
+      const taskSpan = document.getElementById(`task-${taskId}`);
+      const checkbox = document.getElementById(`complete-${taskId}`);
+      const taskItem = taskSpan.parentElement;
 
-        function toggleTask(id) {
-            const task = tasks.find(task=>task.id===id);
-            if (task) {
-                task.completed = !task.completed;
-                renderTasks();
-                updateStats();
-            }
-        }
+      taskSpan.classList.toggle("completed");
+      checkbox.classList.toggle("checked");
+      taskItem.classList.toggle("completed");
 
-        function clearCompleted() {
-            tasks = tasks.filter(task => !task.completed);
-            renderTasks();
-            updateStats();
-        }
+      if (taskSpan.classList.contains("completed")) {
+        completedTaskList.appendChild(taskItem);
+      } else {
+        taskList.appendChild(taskItem);
+      }
 
-        function renderTasks() {
-            const taskList = document.getElementById('taskList');
-            const completedTaskList = document.getElementById('completedTaskList');
-            const emptyState = document.getElementById('emptyState');
-            const clearBtn = document.getElementById('clearBtn');
+      updateStats();
+    }
 
-            const activeTasks = tasks.filter(task => !task.completed);
-            const completedTasks = tasks.filter(task => task.completed);
+    if (targetId.startsWith("delete-")) {
+      const taskItem = event.target.parentElement;
+      taskItem.remove();
+      updateStats();
+    }
+  });
 
-            if (activeTasks.length === 0) {
-                taskList.innerHTML = '<div class="empty-state">No tasks yet!</div>';
-            } else {
-                taskList.innerHTML = activeTasks.map(task => `
-                    <li class="task-item">
-                        <div class="task-checkbox" onclick="toggleTask(${task.id})"></div>
-                        <span class="task-text">${task.text}</span>
-                        <button class="delete-btn" onclick="deleteTask(${task.id})">DELETE</button>
-                    </li>
-                `).join('');
-            }
+  function clearCompleted() {
+    completedTaskList.innerHTML = "";
+    updateStats();
+  }
 
-            if (completedTasks.length === 0) {
-                completedTaskList.innerHTML = '<div class="empty-state">No completed tasks yet.</div>';
-            } else {
-                completedTaskList.innerHTML = completedTasks.map(task => `
-                    <li class="task-item completed">
-                        <div class="task-checkbox checked" onclick="toggleTask(${task.id})"></div>
-                        <span class="task-text completed">${task.text}</span>
-                        <button class="delete-btn" onclick="deleteTask(${task.id})">DELETE</button>
-                    </li>
-                `).join('');
-            }
+  function updateStats() {
+    const total = document.querySelectorAll(".task-item").length;
+    const completed = completedTaskList.querySelectorAll(".task-item").length;
+    const remaining = total - completed;
 
-            
-            clearBtn.style.display = completedTasks.length > 0 ? 'block' : 'none';
-        }
+    document.getElementById("totalTasks").textContent = total;
+    document.getElementById("completedTasks").textContent = completed;
+    document.getElementById("remainingTasks").textContent = remaining;
 
-        function updateStats() {
-            const total = tasks.length;
-            const completed = tasks.filter(task => task.completed).length;
-            const remaining = total - completed;
+    clearBtn.style.display = completed > 0 ? "block" : "none";
+  }
 
-            document.getElementById('totalTasks').textContent = total;
-            document.getElementById('completedTasks').textContent = completed;
-            document.getElementById('remainingTasks').textContent = remaining;
-        }
+  taskInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") addTask();
+  });
 
-        document.getElementById('taskInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                addTask();
-            }
-        });
+  updateStats();
+</script>
 
-        updateStats();
-    </script>
 </body>
 </html>
