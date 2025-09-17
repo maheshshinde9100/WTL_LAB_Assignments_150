@@ -1,4 +1,5 @@
-## All Assignments : https://maheshshinde9100.github.io/WTL_LAB_Assignments_150/
+<!-- ## All Assignments : https://maheshshinde9100.github.io/WTL_LAB_Assignments_150/ -->
+## All Assignments : https://wtl-assignments-150.netlify.app/
 
 ### Assignment 1: Deployed Link: [https://wtl-assignments-150.netlify.app/assignment_01/](https://wtl-assignments-150.netlify.app/assignment_01/)
 
