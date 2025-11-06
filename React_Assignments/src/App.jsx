@@ -7,26 +7,18 @@ import ShowAssignments from "./components/ShowAssignments";
 import UseStatePractice from "./practice/UseStatePractice";
 import Assignment05 from "./Assignments/Assignment05";
 import Assignment06 from "./Assignments/Assignment06";
+import Assignment07 from "./Assignments/Assignment07";
+
 function App() {
   return (
-    // <BrowserRouter>
-    //   <ShowAssignments />
-    //   <Routes>
-    //     <Route path="/" element={<ShowAssignments />} />
-    //     <Route path="/first" element={<First />} />
-    //     <Route path="/login" element={<Login />} />
-    //     <Route path="/usestate" element={<UseStateEx />} />
-    //     <Route path="/useeffect" element={<UseEffectEx />} />
-    //   </Routes>
-    // </BrowserRouter>
     <>
-    
-      <Assignment05 intialCount={0}/>
+      {/* <Assignment05 intialCount={0}/>
       <Assignment05 intialCount={10}/>
       <Assignment05 intialCount={100}/>
+      
+      <Assignment06/> */}
 
-      <Assignment06/>
-
+      <Assignment07/>
     </>
   );
 }
