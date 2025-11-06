@@ -1,0 +1,5 @@
+useState() : use for state management
+
+useState(0) : here 0 is default intial value
+
+ex.., const [count,setCount] = useState(0)   //1st : state variable ; 2nd: state function
